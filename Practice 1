@@ -50,3 +50,6 @@ from staff as s
 left join company_divisions as cd
 on s.department = cd.department
 where cd.company_division is null
+
+
+.
