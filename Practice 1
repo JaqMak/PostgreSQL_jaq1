@@ -49,7 +49,27 @@ select s.last_name, s.department, cd.company_division
 from staff as s
 left join company_divisions as cd
 on s.department = cd.department
-where cd.company_division is null
+where cd.company_division is null;
 
 
-.
+
+#Creating a view will all rows and columns from the staff table as well as 
+#company_divison from company_divisions table and company_regions from company_regions table
+
+create view staff_div_reg as 
+
+select s.*, cd.company_division, cr.company_regions
+from staff s
+left join company_divisions cd
+on s.department = cd.department
+left join company_regions cr
+on s.region_id = cr.region_id;
+
+
+#Counting the number of company_regions in our view
+
+select company_regions, count(*) as total
+from staff_div_reg
+group by company_regions
+order by total desc;
+
