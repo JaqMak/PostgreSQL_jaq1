@@ -1,0 +1,42 @@
+#Running basic statitics on the Staff table
+
+select department, round(avg(salary), 2) as average, sum(salary) as total,
+round(var_pop(salary), 2) as variance, round(stddev_pop(salary),2) as std
+from staff
+group by department
+order by total desc
+
+
+
+#Determining if an employee is an assistant or not
+
+select last_name, job_title, (job_title like '%Assistant%') as is_asst
+from staff;
+
+
+
+#Replacing Assistant with Asst.
+
+select overlay(job_title placing 'Asst.' from 1 for 9)
+from staff
+where job_title like 'Assistant%';
+
+
+
+#Finding the department with the employee with the highest salary
+
+select s1.department, s1.last_name, s1.salary
+from staff as s1
+where s1.salary = (select max(s2.salary)
+					from staff as s2);
+          
+
+
+#Finding the average salary of Executives in each department
+
+select s1.department, round(avg(s1.salary)) as average
+from 
+	(select department, salary
+	from staff
+	where salary > 100000 and job_title like '%Executive%') as s1
+group by s1.department;
