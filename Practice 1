@@ -73,3 +73,14 @@ from staff_div_reg
 group by company_regions
 order by total desc;
 
+
+
+#Getting the total number of employees based on gender, company_division and company_regions
+
+select gender, company_division, company_regions, count(*) as total
+from staff_div_reg
+group by 
+grouping sets (gender, company_division, company_regions )
+order by gender, company_division, company_regions desc;
+
+
