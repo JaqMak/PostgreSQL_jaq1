@@ -40,3 +40,13 @@ from
 	from staff
 	where salary > 100000 and job_title like '%Executive%') as s1
 group by s1.department;
+
+
+
+#Finding which departments are not categorized in any company division
+
+select s.last_name, s.department, cd.company_division
+from staff as s
+left join company_divisions as cd
+on s.department = cd.department
+where cd.company_division is null
